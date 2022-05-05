@@ -1,3 +1,5 @@
+import { FeedbacksRepository } from "../../../repositories/IFeedbacksRepository";
+
 interface CreateFeedbackRequest {
   type: string;
   comment: string;
@@ -5,7 +7,15 @@ interface CreateFeedbackRequest {
 }
 
 export class CreateFeedbackUseCase {
-  async execute({ }: CreateFeedbackRequest) {
+  constructor(private feedbacksRepository: FeedbacksRepository) { };
 
+  async execute({ type, comment, screenshot }: CreateFeedbackRequest) {
+    // const { type, comment, screenshot } = request.body;
+
+    await this.feedbacksRepository.create({
+      type,
+      comment,
+      screenshot,
+    });
   }
 }
