@@ -21,6 +21,20 @@ export class CreateFeedbackUseCase {
       screenshot,
     });
 
+    // exemplo só para test
+    if (!type) {
+      throw new Error("Type is required");
+    }
+    // exemplo só para test
+    if (!comment) {
+      throw new Error("Comment is required");
+    }
+
+    // exemplo só para test
+    if (screenshot && !screenshot.startsWith("data:image/png;base64")) {
+      throw new Error("Invalid screenshot format.");
+    }
+
     await this.mailAdapter.sendMail({
       subject: "Novo feedback",
       body: [
